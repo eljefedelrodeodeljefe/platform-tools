@@ -1,7 +1,7 @@
 {
   "name": "platform-tools",
   "version": "0.1.0",
-  "description": "Build and compile native dependencies with and for Node.",
+  "description": "A toolchain to build and compile native dependencies with and for Node.",
   "main": "index.js",
   "scripts": {
     "test": "tape 'test/**/*.spec.js'",
@@ -12,7 +12,14 @@
     "url": "git+https://github.com/eljefedelrodeodeljefe/platform-tools.git"
   },
   "keywords": [
-    "concurrency"
+    "compiler",
+    "toolchain",
+    "linker",
+    "c",
+    "c++",
+    "cpp",
+    "native",
+    "addons"
   ],
   "author": "Robert Jefe Lindstaedt <robert.lindstaedt@gmail.com>",
   "license": "MIT",
