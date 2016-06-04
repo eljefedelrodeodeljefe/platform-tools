@@ -1,0 +1,74 @@
+language: cpp
+compiler: gcc
+sudo: false
+
+os:
+  - linux
+  - osx
+
+matrix:
+  allow_failures:
+  fast_finish: true
+
+env:
+  global:
+  matrix:
+    # - export NODE_VERSION="0.12"
+    - export NODE_VERSION="4"
+    - export NODE_VERSION="5"
+    - export NODE_VERSION="6"
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.7
+      - g++-4.7
+
+before_install:
+  - git clone https://github.com/creationix/nvm.git ./.nvm
+  - source ./.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - nvm use $NODE_VERSION
+  - if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export CC="gcc-4.7";
+      export CXX="g++-4.7";
+      export LINK="gcc-4.7";
+      export LINKXX="g++-4.7";
+    fi
+  - gcc --version
+  - g++ --version
+  - npm install node-gyp -g
+  - npm install -g coveralls
+  - npm install -g istanbul
+
+before_script:
+script:
+  - npm install
+  - npm test
+
+cache:
+  directories:
+    - $HOME/.node-gyp
+    - $HOME/.npm
+    - node_modules
+
+deploy:
+  provider: npm
+  email: devraindance@gmail.com
+  api_key:
+    secure: Z/hpH3P793Abzp9XQGzToXjnG379wKdNbFg1vPIlRHgOUDVILLp+J7aRNCA3RihnahS3EBvlhXc1Rpc+iAW0Dbc6E2g2w5OOAOrgYMIVOf3IrJ9qn3wXD35QUI/pTzHmliExAmvdeHJovf8PlkI7tzgVojfoqCdRs7uiJG6MBUM=
+  on:
+    branch: master
+    repo: eljefederodeodeljefe/process-observe
+
+# notifications:
+#   webhooks:
+#     branch: master
+#     urls:
+#       - https://webhooks.gitter.im/e/20bdfb25eb44f4600ce9
+#     on_success: always
+#     on_failure: always
+#     on_start: false
+#     
