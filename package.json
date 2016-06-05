@@ -28,8 +28,7 @@
   },
   "homepage": "https://github.com/eljefedelrodeodeljefe/platform-tools#readme",
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.3.6",
-    "standard": "^7.1.0"
+    "jsdoc-to-markdown": "^1.3.6"
   },
   "dependencies": {
 
