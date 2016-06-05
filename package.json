@@ -4,7 +4,7 @@
   "description": "A toolchain to build and compile native dependencies with and for Node.",
   "main": "index.js",
   "scripts": {
-    "test": "tape 'test/**/*.spec.js'",
+    "test": "node test/test-runner.js",
     "doc": "jsdoc2md lib/platform_tools.js > doc/API.md && node -e \"const fs = require('fs');fs.writeFile('README.md', fs.readFileSync('doc/README.md'));['doc/README.md', 'doc/API.md', 'doc/LICENSE.md'].forEach(function(el){fs.appendFileSync('README.md',fs.readFileSync(el))})\""
   },
   "repository": {
