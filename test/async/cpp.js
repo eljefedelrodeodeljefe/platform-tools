@@ -4,7 +4,7 @@ const assert = require('assert')
 const child_process = require('child_process')
 
 {
-  let out = 'test/fixtures/sources/cpp/out/simple'
+  let out = 'test/fixtures/sources/cpp/out/simple.o'
   console.log('came here');
   pt.compile('test/fixtures/sources/cpp/simple.cc', {output: out}, () => {
     // const e = child_process.spawn('./' + out, []);

@@ -4,7 +4,7 @@ const assert = require('assert')
 const child_process = require('child_process')
 
 {
-  let out = 'test/fixtures/sources/c/out/exit_with_1'
+  let out = 'test/fixtures/sources/c/out/exit_with_1.o'
   pt.compile('test/fixtures/sources/c/exit_with_1.c', {output: out}, () => {
     const e = child_process.spawn('./' + out, []);
     e.on('close', (code) => {
@@ -14,7 +14,7 @@ const child_process = require('child_process')
 }
 
 {
-  let out = 'test/fixtures/sources/c/out/return_with_0'
+  let out = 'test/fixtures/sources/c/out/return_with_0.o'
   pt.compile('test/fixtures/sources/c/return_with_0.c', {output: out}, () => {
     const e = child_process.spawn('./' + out, []);
     e.on('close', (code) => {
