@@ -28,7 +28,7 @@ gcc -o exit_with_1.o
 ```
 
 ```js
-const platform_tools = require('platform_tools')
+const platform_tools = require('platform-tools')
 const spawn = require('child_process').spawn
 
 let out = 'exit_with_1'
