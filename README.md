@@ -1,6 +1,6 @@
 # platform-tools
 
-Native bindings to observation APIs like `sysctl` (BSDs), `proc/{pid}/` (Linux) and Windows equivalents in the context of process observation.
+A toolchain to build and compile native dependencies with and for Node.
 
 [![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools) [![Build status](https://ci.appveyor.com/api/projects/status/59q34ua3i457k27x?svg=true)](https://ci.appveyor.com/project/eljefederodeodeljefe/platform-tools) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/) [![Join the chat at https://gitter.im/eljefedelrodeodeljefe/platform-tools](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eljefedelrodeodeljefe/platform-tools?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -8,24 +8,39 @@ Native bindings to observation APIs like `sysctl` (BSDs), `proc/{pid}/` (Linux) 
 
 ## TL;DR
 
-> In some cases you have orphaned process or just want to watch certain processes. To work with them from node you need either handles to them or need to observe them first. This module aids those purposes.
+> Compile C/C++ and native node addons with Node.js. Under the hood this is shelling
+out to `gcc`, `clang` and `cl.exe` in a similar way `make` does. To mitigate `gyp` and
+`autotools` dependencies node users (eventually) could use this.
 
 ```js
-// inspect your current process (here assuming that you have just spawned
-// a new process), here with async API
-observe.children(process.pid, (err, result) => {
-	if (err)
-		console.log(err)
+const platform_tools = require('platform_tools')
+const spawn = require('child_process').spawn
 
-	console.log(result)
-	// -> {pids: [5841], count: 1}
+// The below is an example of emulating
+// 		gcc -c exit_with_1
+// 		gcc -o exit_with_1.o
+// 		./exit_with_1
+// 		
+let out = 'exit_with_1'
+// first compile without linking
+platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
+	// then link the object file (here an easy case)
+	platform_tools.link(`${out}.o`, {output: out}, () => {
+		// now execute the compiled binary and expect the C-program to end
+		// with code 1
+		const cp = child_process.spawn(out, [], {shell: true});
+		cp.on('close', (code) => {
+			assert(code === 1), 'Compiled binary exit_with_1 must exit with code 1')
+		})
+	})
 })
 ```
 ## Implementation Status<a name="status"></a>
 | Method | implemented |
 | --- | --- |
-| .info(pid [, cb]) | **yes** |
-| .children(pid [, cb]) | **yes** |
+| .compile(source [, cb]) | **yes** |
+| .link(object [, cb]) | **yes** |
+| .config(library [, cb]) | **yes** |
 
 
 
@@ -34,22 +49,25 @@ observe.children(process.pid, (err, result) => {
 ### Technical Overview
 
 **Rquirements:**
-* Node 4.0.0+
+* Node 4.5.0+
 
 ## Platform
 
 This module is currently tested on:
 
-| Platform | 0.12 | 3.0 | 4.0 | 5.0 | 6.0 |
+| Platform | 0.10 | 0.12 | 4.0 | 5.0 | 6.0 |
 | --- | --- | --- | --- | ---| ---|---|
 | Mac OS X | - | - | **yes** | **yes**| **yes** |
-| BSDs | - | - | - | - | - |
+| BSDs| - | - | **yes** | **yes**| **yes** |
 | Linux | - | - | **yes** | **yes**  | **yes** |
-| Windows | - | - | - | - | - |
+| Windows | - | - | **yes** | **yes**  | **yes** |
 
 ## Roadmap
 
-Please see [list of the implemented methods](#status) for now.
+* have more complex C/C++ files compile and link
+* make native addons built
+* make node built
+* make v8 v8
 
 
 ## API
@@ -61,7 +79,7 @@ Please see [list of the implemented methods](#status) for now.
 * [PlatformTools](#PlatformTools)
     * [.compile(source, cb)](#PlatformTools+compile) ⇒ <code>Callback</code>
     * [.link(object, options, cb)](#PlatformTools+link) ⇒ <code>Callback</code>
-    * [.pkgConfig(lib, cb)](#PlatformTools+pkgConfig) ⇒ <code>Callback</code>
+    * [.config(lib, cb)](#PlatformTools+config) ⇒ <code>Callback</code>
 
 <a name="PlatformTools+compile"></a>
 
@@ -88,9 +106,9 @@ Links mutiple objects and libraries to a binary
 | options | <code>Object</code> | Options object |
 | cb | <code>function</code> | Optional callback |
 
-<a name="PlatformTools+pkgConfig"></a>
+<a name="PlatformTools+config"></a>
 
-### platformTools.pkgConfig(lib, cb) ⇒ <code>Callback</code>
+### platformTools.config(lib, cb) ⇒ <code>Callback</code>
 Returns the necessary libraries to link against, similarly to pkg-config(1).
 
 **Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>  
