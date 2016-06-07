@@ -15,10 +15,11 @@ out to `gcc`, `clang` and `cl.exe` in a similar way `make` does. To mitigate `gy
 Assume a file `exit_with_1.c`
 
 ```c
-int main(int argc, char const \*argv[]) {
+int main(int argc, char const* argv[]) {
   return 1;
 }
 ```
+
 The below would be an example of emulating with Node.js
 
 ```console
