@@ -12,15 +12,25 @@ A toolchain to build and compile native dependencies with and for Node.
 out to `gcc`, `clang` and `cl.exe` in a similar way `make` does. To mitigate `gyp` and
 `autotools` dependencies node users (eventually) could use this.
 
+Assume a file `exit_with_1.c`
+
+```c
+int main(int argc, char const \*argv[]) {
+  return 1;
+}
+```
+The below would be an example of emulating with Node.js
+
+```console
+gcc -c exit_with_1
+gcc -o exit_with_1.o
+./exit_with_1
+```
+
 ```js
 const platform_tools = require('platform_tools')
 const spawn = require('child_process').spawn
 
-// The below is an example of emulating
-// 		gcc -c exit_with_1
-// 		gcc -o exit_with_1.o
-// 		./exit_with_1
-// 		
 let out = 'exit_with_1'
 // first compile without linking
 platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
