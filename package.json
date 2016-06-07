@@ -31,6 +31,6 @@
     "jsdoc-to-markdown": "^1.3.6"
   },
   "dependencies": {
-
+    "tar": "^2.2.1"
   }
 }
