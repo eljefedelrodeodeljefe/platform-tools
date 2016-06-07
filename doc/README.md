@@ -39,7 +39,7 @@ platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
 	platform_tools.link(`${out}.o`, {output: out}, () => {
 		// now execute the compiled binary and expect the C-program to end
 		// with code 1
-		const cp = child_process.spawn(out, [], {shell: true});
+		const cp = spawn(out, [], {shell: true});
 		cp.on('close', (code) => {
 			assert(code === 1), 'Compiled binary exit_with_1 must exit with code 1')
 		})
