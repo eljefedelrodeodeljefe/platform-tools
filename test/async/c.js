@@ -13,7 +13,7 @@ const child_process = require('child_process')
       });
       e.on('close', (code) => {
         // FIXME
-        assert(code === 0, 'Compiled binary exit_with_1 must exit with code 1')
+        assert(code === (process.platform === 'win32' ? 0 : 1), 'Compiled binary exit_with_1 must exit with code 1')
       });
     })
   })
