@@ -1,9 +1,10 @@
 language: cpp
-compiler: gcc
+sudo: required
+dist: trusty
 
-os:
-  - linux
-  - osx
+# os:
+#   - linux
+#   - osx
 
 matrix:
   allow_failures:
@@ -17,11 +18,8 @@ env:
     - export NODE_VERSION="5"
     - export NODE_VERSION="6"
 
+
 before_install:
-  - if [ $TRAVIS_OS_NAME == "linux" ]; sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
-  - if [ $TRAVIS_OS_NAME == "linux" ]; sudo apt-get update -qq; fi
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - git clone https://github.com/creationix/nvm.git ./.nvm
   - source ./.nvm/nvm.sh
   - nvm install $NODE_VERSION
