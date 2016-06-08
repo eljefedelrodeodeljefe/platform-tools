@@ -2,9 +2,9 @@ language: cpp
 sudo: required
 dist: trusty
 
-# os:
-#   - linux
-#   - osx
+os:
+  - linux
+  - osx
 
 matrix:
   allow_failures:
