@@ -46,12 +46,14 @@ platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
 	})
 })
 ```
+
 ## Implementation Status<a name="status"></a>
 | Method | implemented |
 | --- | --- |
-| .compile(source [, cb]) | **yes** |
-| .link(object [, cb]) | **yes** |
-| .config(library [, cb]) | **yes** |
+| .compile(source [,options, cb]) | **yes** |
+| .compileAddon(source [,options, cb]) | **yes** |
+| .link(object [,options, cb]) | **yes** |
+| .config(library [,options, cb]) | **yes** |
 
 
 
@@ -79,6 +81,7 @@ This module is currently tested on:
 * make native addons built
 * make node built
 * make v8 v8
+* override values that the lib takes as assumption
 
 
 ## API
