@@ -1,3 +1,4 @@
+'use stric';
 const pt = require('../../')
 const assert = require('assert')
 const child_process = require('child_process')
