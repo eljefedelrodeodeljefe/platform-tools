@@ -8,7 +8,7 @@ const child_process = require('child_process')
   // node-gyp clean && mkdir build && cd build && mkdir -p Release/obj.target/addon/ && c++ -I/Users/jefe/repos/platform-tools/build/deps/node/6.2.0/include/node -I../node_modules/nan  -Os -gdwarf-2 -mmacosx-version-min=10.7 -Wall -Wendif-labels -W -Wno-unused-parameter -std=gnu++0x -fno-rtti -fno-exceptions -fno-threadsafe-statics -fno-strict-aliasing -c -o Release/obj.target/addon/addon.o ../addon.cc
   // c++ -bundle -undefined dynamic_lookup -Wl,-no_pie -Wl,-search_paths_first -mmacosx-version-min=10.7 -L./Release  -o Release/addon.node Release/obj.target/addon/addon.o
   //
-  let out = '/Users/jefe/repos/platform-tools/test/fixtures/sources/addons/addon.cc'
+  let out = `${process.cwd()}/test/fixtures/sources/addons/addon.cc`
   pt.compileAddon(`${out}`, {output: `addon`}, (err) => {
     if (err) {
       console.log(err);
