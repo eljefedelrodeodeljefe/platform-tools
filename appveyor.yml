@@ -13,7 +13,6 @@ platform:
   - x86
   - x64
 
-
 install:
   - ECHO "Installed SDKs:"
   - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
@@ -30,3 +29,6 @@ test_script:
   - npm --version
   # run tests
   - npm test
+
+# Don't actually build.
+build: off
