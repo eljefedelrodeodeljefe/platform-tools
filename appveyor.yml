@@ -13,6 +13,8 @@ platform:
   - x86
   - x64
 
+image: Previous Visual Studio 2015
+
 install:
   - ECHO "Installed SDKs:"
   - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
