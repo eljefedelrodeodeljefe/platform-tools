@@ -18,7 +18,6 @@ install:
   - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
-  - cinst windows-sdk-10.0
   # install modules
   - npm install -g node-gyp
   - npm install
