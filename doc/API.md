@@ -56,11 +56,12 @@ care of all of the above. If the user has special cases, it is still
 possible to pass instructions via the options object and (item for roadmap)
 override certain common variables forcefully.
 
-**Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>
-**Returns**: <code>Callback</code> - returns optional callback
+**Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>  
+**Returns**: <code>Callback</code> - returns optional callback  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | addonSrcFile | <code>String</code> | Path to source file |
 | options | <code>Object</code> | Options object |
 | cb | <code>function</code> |  |
+

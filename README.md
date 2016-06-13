@@ -63,6 +63,23 @@ platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
 
 **Rquirements:**
 * Node 4.5.0+
+* the default compiler for your system
+
+## Windows Users
+
+> Mote: since this repo wants to purposely increase Windows native addon usabilty
+please share if you have a hard time. However ue to the Microsoft inherent SDK
+and compiler strategy we need to assume prerequisites of you.
+
+* Windows SDK 10 standalone should be installed and in your %ProgramFiles(x86)%
+* Visual Studio 2015 should be installed and in your %ProgramFiles(x86)%
+
+**For background:** To accomplish unix-like command-line behavior, e.g.
+`gcc source_file.c -o source.exe && ./source.exe` we need to assume the location
+of the most basic C/C++ headers in various locations on your Windows installation.
+The `cl.exe` binary does not assume any search paths on it's own, if it is not
+run through Visual Studio. Although that being quite a quirk for embedders and
+library authors, Windows compiler support is as good as Unix'.
 
 ## Platform
 
@@ -78,7 +95,7 @@ This module is currently tested on:
 ## Roadmap
 
 * have more complex C/C++ files compile and link
-* make native addons built
+* ~~make native addons built~~
 * make node built
 * make v8 v8
 * override values that the lib takes as assumption
@@ -143,8 +160,8 @@ care of all of the above. If the user has special cases, it is still
 possible to pass instructions via the options object and (item for roadmap)
 override certain common variables forcefully.
 
-**Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>
-**Returns**: <code>Callback</code> - returns optional callback
+**Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>  
+**Returns**: <code>Callback</code> - returns optional callback  
 
 | Param | Type | Description |
 | --- | --- | --- |
