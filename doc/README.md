@@ -99,6 +99,8 @@ This module is currently tested on:
 * make node built
 * make v8 v8
 * override values that the lib takes as assumption
+* gyp-file integration (chop-off comments and trailing commas -> then done)
+* more sophisticated Windows search path fallbacks for not optimal installatons 
 
 
 ## API
