@@ -8,7 +8,6 @@ fs.readdir('./test/async', (err, data) => {
   data.forEach((file) => {
     child_process.exec(`node test/async/${file}`, (err, stdout, stderr) => {
       if (err) {
-        console.log(stdout)
         console.log(stderr)
         throw err
       }
