@@ -1,3 +1,5 @@
-var addon = require('bindings')('../../../../../../../..build/addon_2.node');
+var addon = require('bindings')('../../../../../../../../build/addon_2.node');
 
-console.log('This should be eight:', addon.add(3, 5))
+module.exports = (a, b) => {
+  return addon.add(a, b)
+}

@@ -21,3 +21,64 @@ const child_process = require('child_process')
     assert.equal(addon.add(10, 5), 15)
   })
 }
+
+{
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/1_hello_world/nan/hello.cc`
+  pt.compileAddon(`${out}`, {output: `addon_1`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/1_hello_world/nan/hello.js')
+
+    assert.equal(addon(), 'world')
+  })
+}
+
+{
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon.cc`
+  pt.compileAddon(`${out}`, {output: `addon_2`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon.js')
+
+    assert.equal(addon(3,5), 8)
+  })
+}
+
+{
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon.cc`
+  pt.compileAddon(`${out}`, {output: `addon_3`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon.js')
+
+    let count = 2
+    addon(() => {
+      count--
+      assert.equal(count, 0)
+    })
+    count--
+  })
+}
+
+{
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon.cc`
+  pt.compileAddon(`${out}`, {output: `addon_4`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon.js')
+
+    assert.equal(addon(), 'hello world')
+  })
+}

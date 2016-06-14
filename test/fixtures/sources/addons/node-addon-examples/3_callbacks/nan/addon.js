@@ -1,5 +1,7 @@
-var addon = require('bindings')('../../../../../../../..build/addon_3.node');
+var addon = require('bindings')('../../../../../../../../build/addon_3.node');
 
-addon(function(msg){
-  console.log(msg); // 'hello world'
-});
+
+
+module.exports = (cb) => {
+  process.nextTick( () => addon(cb)); // make sure this async. Probably is not a valid test then
+}

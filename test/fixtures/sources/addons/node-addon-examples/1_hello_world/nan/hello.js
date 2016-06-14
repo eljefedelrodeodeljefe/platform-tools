@@ -1,3 +1,5 @@
-var addon = require('bindings')('../../../../../../../..build/addon_1.node');
+var addon = require('bindings')('../../../../../../../../build/addon_1.node');
 
-console.log(addon.hello()); // 'world'
+module.exports = () => {
+  return addon.hello()
+}
