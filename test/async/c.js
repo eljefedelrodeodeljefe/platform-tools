@@ -28,7 +28,6 @@ const child_process = require('child_process')
         assert(!err, 'Error must not be called')
       });
       e.on('close', (code) => {
-        console.log('end');
         assert(code === 0, 'Compiled binary return_with_0 must exit with code 0')
       });
     })
