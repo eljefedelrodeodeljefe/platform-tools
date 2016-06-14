@@ -1,6 +1,7 @@
 'use strict'
 const pt = require('../../')
 const assert = require('assert')
+const path = require('path')
 const child_process = require('child_process')
 
 {
@@ -29,6 +30,34 @@ const child_process = require('child_process')
       });
       e.on('close', (code) => {
         assert(code === 0, 'Compiled binary return_with_0 must exit with code 0')
+      });
+    })
+  })
+}
+
+{
+  let out = `${process.cwd()}/build/multiple_objects_exectuable`
+  const sources = [
+    'test/fixtures/sources/c/file_1.c',
+    'test/fixtures/sources/c/file_2.c'
+  ]
+
+  // the output option will be forcefully ignored
+  pt.compile(sources, {output: `${out}.o`}, (err, files) => {
+    if (err)
+      assert(!err, 'Error must not be called')
+
+    pt.link(files, {output: out}, (err, file) => {
+      console.log(`./${path.parse(file).name}`);
+      if (err) {
+        assert(!err, 'Error must not be called')
+      }
+      const e = child_process.spawn(`${process.cwd()}/build/${path.parse(file).name}`, [], {shell: true});
+      e.on('error', (err) => {
+        assert(!err, 'Error must not be called')
+      });
+      e.on('close', (code) => {
+        assert(code === 123, 'Compiled binary return_with_0 must exit with code 0')
       });
     })
   })

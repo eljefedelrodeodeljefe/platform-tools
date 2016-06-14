@@ -1,5 +1,6 @@
 #include <stdio.h>
 
 int hello() {
-  return 123;
+  int r = 123;
+  return r;
 }
