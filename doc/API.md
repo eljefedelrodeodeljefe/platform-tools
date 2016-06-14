@@ -12,13 +12,14 @@
 <a name="PlatformTools+compile"></a>
 
 ### platformTools.compile(source, cb) ⇒ <code>Callback</code>
-Compiles a given source code file to the platforms object code
+Compiles a given source code file or array of files to the platforms object
+code.
 
 **Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| source | <code>String</code> | Path to source |
+| source | <code>String</code> &#124; <code>Array.&lt;String&gt;</code> | Path to source |
 | cb | <code>function</code> | Optional callback for completion |
 
 <a name="PlatformTools+link"></a>
