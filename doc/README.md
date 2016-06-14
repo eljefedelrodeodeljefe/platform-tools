@@ -59,6 +59,13 @@ platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
 
 ### Overview
 
+(TBD)
+
+Also this makes it easier for libarary authors and users, since compilation
+output will either be stored into a user specified location or by default into
+the current working directories `build/` directory (precisely
+``` `${process.cwd()}/build` ```)
+
 ### Technical Overview
 
 **Rquirements:**
@@ -100,7 +107,7 @@ This module is currently tested on:
 * make v8 v8
 * override values that the lib takes as assumption
 * gyp-file integration (chop-off comments and trailing commas -> then done)
-* more sophisticated Windows search path fallbacks for not optimal installatons 
+* more sophisticated Windows search path fallbacks for not optimal installatons
 
 
 ## API

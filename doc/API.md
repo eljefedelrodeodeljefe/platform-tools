@@ -25,13 +25,13 @@ code.
 <a name="PlatformTools+link"></a>
 
 ### platformTools.link(object, options, cb) ⇒ <code>Callback</code>
-Links mutiple objects and libraries to a binary
+Links mutiple objects and libraries to a binary.
 
 **Kind**: instance method of <code>[PlatformTools](#PlatformTools)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| object | <code>String</code> | Path for name of object code file |
+| object | <code>String</code> &#124; <code>Array.&lt;String&gt;</code> | Path for name of object code file |
 | options | <code>Object</code> | Options object |
 | cb | <code>function</code> | Optional callback |
 
