@@ -82,3 +82,18 @@ const child_process = require('child_process')
     assert.equal(addon(), 'hello world')
   })
 }
+
+{
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon.cc`
+  pt.compileAddon(`${out}`, {output: `addon_5`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon.js')
+    const fn = addon()
+
+    assert.equal(fn(), 'hello world')
+  })
+}
