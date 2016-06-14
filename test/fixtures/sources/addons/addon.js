@@ -1,1 +1,1 @@
-module.exports = require('bindings')('../../../../../build/addon.node')
+module.exports = require(`${process.cwd()}/build/addon.node`);

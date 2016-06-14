@@ -1,4 +1,4 @@
-var addon = require('bindings')('../../../../../../../../build/addon_4.node');
+var addon = require(`${process.cwd()}/build/addon_4.node`);
 
 var obj1 = addon('hello');
 var obj2 = addon('world');

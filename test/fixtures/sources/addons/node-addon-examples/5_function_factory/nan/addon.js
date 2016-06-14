@@ -1,4 +1,4 @@
-var addon = require('bindings')('../../../../../../../../build/addon_5.node');
+var addon = require(`${process.cwd()}/build/addon_5.node`);
 
 var fn = addon();
 module.exports = () => {
