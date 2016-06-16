@@ -101,12 +101,12 @@ This module is currently tested on:
 
 ## Roadmap
 
-* have more complex C/C++ files compile and link
-* ~~make native addons built~~
-* make node built
-* make v8 v8
+* have more complex C/C++ files compile and link fully
+* ~~make native addons build~~
+* make node build
+* make v8 build
 * override values that the lib takes as assumption
-* gyp-file integration (chop-off comments and trailing commas -> then done)
+* gyp-file integration (chop-off comments and trailing commas -> then done?)
 * more sophisticated Windows search path fallbacks for not optimal installatons
 
 

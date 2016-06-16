@@ -2,7 +2,7 @@
 
 A toolchain to build and compile native dependencies with and for Node.
 
-[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools) [![Build status](https://ci.appveyor.com/api/projects/status/7vew0ah2crs5y8b5/branch/master?svg=true)](https://ci.appveyor.com/project/eljefederodeodeljefe/platform-tools/branch/master) [![dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg?style=flat-square)]()
+[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools) [![Build status](https://ci.appveyor.com/api/projects/status/59q34ua3i457k27x?svg=true)](https://ci.appveyor.com/project/eljefederodeodeljefe/platform-tools) [![Join the chat at https://gitter.im/eljefedelrodeodeljefe/platform-tools](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eljefedelrodeodeljefe/platform-tools?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![NPM](https://nodei.co/npm-dl/platform-tools.png?months=6&height=2)](https://nodei.co/npm/platform-tools/)
 
@@ -101,12 +101,12 @@ This module is currently tested on:
 
 ## Roadmap
 
-* have more complex C/C++ files compile and link
-* ~~make native addons built~~
-* make node built
-* make v8 v8
+* have more complex C/C++ files compile and link fully
+* ~~make native addons build~~
+* make node build
+* make v8 build
 * override values that the lib takes as assumption
-* gyp-file integration (chop-off comments and trailing commas -> then done)
+* gyp-file integration (chop-off comments and trailing commas -> then done?)
 * more sophisticated Windows search path fallbacks for not optimal installatons
 
 
