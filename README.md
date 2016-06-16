@@ -2,7 +2,7 @@
 
 A toolchain to build and compile native dependencies with and for Node.
 
-[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools) [![Build status](https://ci.appveyor.com/api/projects/status/7vew0ah2crs5y8b5/branch/master?svg=true)](https://ci.appveyor.com/project/eljefederodeodeljefe/platform-tools/branch/master)
+[![Build Status](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools.svg?branch=master)](https://travis-ci.org/eljefedelrodeodeljefe/platform-tools) [![Build status](https://ci.appveyor.com/api/projects/status/7vew0ah2crs5y8b5/branch/master?svg=true)](https://ci.appveyor.com/project/eljefederodeodeljefe/platform-tools/branch/master) [![dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg?style=flat-square)]()
 
 [![NPM](https://nodei.co/npm-dl/platform-tools.png?months=6&height=2)](https://nodei.co/npm/platform-tools/)
 
