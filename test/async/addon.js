@@ -97,3 +97,30 @@ const child_process = require('child_process')
     assert.equal(fn(), 'hello world')
   })
 }
+
+{
+  let out = [
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/addon_6.cc`,
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/myobject.cc`
+  ]
+  pt.compileAddon(out, {output: `addon_6`}, (err) => {
+    // if (err) {
+    //   console.log(err);
+    //   assert(!err, 'must not call error here')
+    // }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/addon.js')
+
+    let obj = new addon.MyObject(10);
+    assert.equal(obj.plusOne(), 11)
+    assert.equal(obj.plusOne(), 12)
+    assert.equal(obj.plusOne(), 13)
+
+    assert.equal(obj.multiply().value(), 13)
+    assert.equal(obj.multiply(10).value(), 130)
+
+    let newobj = obj.multiply(-1);
+    assert.equal(newobj.value(), -13)
+    assert.equal(obj === newobj, false)
+  })
+}
