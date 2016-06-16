@@ -37,7 +37,7 @@ const child_process = require('child_process')
 }
 
 {
-  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon.cc`
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon_2.cc`
   pt.compileAddon(`${out}`, {output: `addon_2`}, (err) => {
     if (err) {
       console.log(err);
@@ -51,7 +51,7 @@ const child_process = require('child_process')
 }
 
 {
-  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon.cc`
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon_3.cc`
   pt.compileAddon(`${out}`, {output: `addon_3`}, (err) => {
     if (err) {
       console.log(err);
@@ -70,7 +70,7 @@ const child_process = require('child_process')
 }
 
 {
-  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon.cc`
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon_4.cc`
   pt.compileAddon(`${out}`, {output: `addon_4`}, (err) => {
     if (err) {
       console.log(err);
@@ -84,7 +84,7 @@ const child_process = require('child_process')
 }
 
 {
-  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon.cc`
+  let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon_5.cc`
   pt.compileAddon(`${out}`, {output: `addon_5`}, (err) => {
     if (err) {
       console.log(err);
