@@ -124,3 +124,51 @@ const child_process = require('child_process')
     assert.equal(obj === newobj, false)
   })
 }
+
+
+{
+  let out = [
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/7_factory_wrap/nan/addon_7.cc`,
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/7_factory_wrap/nan/myobject_7.cc`
+  ]
+  pt.compileAddon(out, {output: `addon_7`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let createObject = require('../fixtures/sources/addons/node-addon-examples/7_factory_wrap/nan/addon.js')
+
+    var obj = createObject(10);
+    assert.equal(obj.plusOne(), 11);
+    assert.equal(obj.plusOne(), 12);
+    assert.equal(obj.plusOne(), 13);
+
+    var obj2 = createObject(20);
+    assert.equal(obj2.plusOne(), 21);
+    assert.equal(obj2.plusOne(), 22);
+    assert.equal(obj2.plusOne(), 23);
+  })
+}
+
+{
+  let out = [
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/8_passing_wrapped/nan/addon_8.cc`,
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/8_passing_wrapped/nan/myobject_8.cc`
+  ]
+  pt.compileAddon(out, {output: `addon_8`}, (err) => {
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
+
+    let addon = require('../fixtures/sources/addons/node-addon-examples/8_passing_wrapped/nan/addon.js')
+
+    var obj1 = addon.createObject(10);
+    var obj2 = addon.createObject(20);
+    var result = addon.add(obj1, obj2);
+
+    assert.equal(result, 30);
+
+  })
+}
