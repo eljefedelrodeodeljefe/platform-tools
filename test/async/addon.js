@@ -104,10 +104,10 @@ const child_process = require('child_process')
     `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/myobject.cc`
   ]
   pt.compileAddon(out, {output: `addon_6`}, (err) => {
-    // if (err) {
-    //   console.log(err);
-    //   assert(!err, 'must not call error here')
-    // }
+    if (err) {
+      console.log(err);
+      assert(!err, 'must not call error here')
+    }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/addon.js')
 
