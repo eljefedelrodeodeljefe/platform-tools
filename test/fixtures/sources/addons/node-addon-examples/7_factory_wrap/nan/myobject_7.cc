@@ -1,5 +1,5 @@
 #include <nan.h>
-#include "myobject.h"
+#include "myobject_7.h"
 
 using namespace v8;
 

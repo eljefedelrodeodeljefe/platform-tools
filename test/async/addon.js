@@ -104,7 +104,7 @@ test('addon_6 test', function (t) {
   t.plan(7)
   let out = [
     `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/addon_6.cc`,
-    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/myobject.cc`
+    `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/myobject_6.cc`
   ]
   pt.compileAddon(out, {output: `addon_6`}, (err) => {
     if (err) {

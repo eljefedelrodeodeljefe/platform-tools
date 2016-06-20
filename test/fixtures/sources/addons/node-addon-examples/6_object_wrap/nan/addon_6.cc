@@ -1,5 +1,5 @@
 #include <nan.h>
-#include "myobject.h"
+#include "myobject_6.h"
 
 void InitAll(v8::Local<v8::Object> exports) {
   MyObject::Init(exports);

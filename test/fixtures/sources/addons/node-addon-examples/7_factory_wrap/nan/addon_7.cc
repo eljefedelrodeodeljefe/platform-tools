@@ -1,5 +1,5 @@
 #include <nan.h>
-#include "myobject.h"
+#include "myobject_7.h"
 
 void CreateObject(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   info.GetReturnValue().Set(MyObject::NewInstance(info[0]));

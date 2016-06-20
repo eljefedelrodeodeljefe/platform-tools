@@ -1,5 +1,5 @@
 #include <node.h>
-#include "myobject.h"
+#include "myobject_8.h"
 
 MyObject::MyObject() {};
 MyObject::~MyObject() {};

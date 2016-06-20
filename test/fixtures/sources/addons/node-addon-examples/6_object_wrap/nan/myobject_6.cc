@@ -1,4 +1,4 @@
-#include "myobject.h"
+#include "myobject_6.h"
 
 Nan::Persistent<v8::Function> MyObject::constructor;
 
