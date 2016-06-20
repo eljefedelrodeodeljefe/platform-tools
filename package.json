@@ -4,7 +4,7 @@
   "description": "A toolchain to build and compile native dependencies with and for Node.",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test-runner.js",
+    "test": "tape 'test/async/*.js'",
     "doc": "jsdoc2md lib/platform_tools.js > doc/API.md && node -e \"const fs = require('fs');fs.writeFile('README.md', fs.readFileSync('doc/README.md'));['doc/README.md', 'doc/API.md', 'doc/LICENSE.md'].forEach(function(el){fs.appendFileSync('README.md',fs.readFileSync(el))})\""
   },
   "repository": {
@@ -29,7 +29,8 @@
   "homepage": "https://github.com/eljefedelrodeodeljefe/platform-tools#readme",
   "devDependencies": {
     "jsdoc-to-markdown": "^1.3.6",
-    "nan": "^2.3.5"
+    "nan": "^2.3.5",
+    "tape": "^4.6.0"
   },
   "dependencies": {}
 }
