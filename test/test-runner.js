@@ -27,5 +27,4 @@ fs.readdir('./test/async', (err, data) => {
     })
     cp
   }
-
 })
