@@ -35,15 +35,15 @@ const spawn = require('child_process').spawn
 let out = 'exit_with_1'
 // first compile without linking
 platform_tools.compile('exit_with_1.c', {output: `${out}.o`}, () => {
-	// then link the object file (here an easy case)
-	platform_tools.link(`${out}.o`, {output: out}, () => {
-		// now execute the compiled binary and expect the C-program to end
-		// with code 1
-		const cp = spawn(out, [], {shell: true});
-		cp.on('close', (code) => {
-			assert(code === 1), 'Compiled binary exit_with_1 must exit with code 1')
-		})
-	})
+  // then link the object file (here an easy case)
+  platform_tools.link(`${out}.o`, {output: out}, () => {
+    // now execute the compiled binary and expect the C-program to end
+    // with code 1
+    const cp = spawn(out, [], {shell: true});
+    cp.on('close', (code) => {
+      assert(code === 1), 'Compiled binary exit_with_1 must exit with code 1')
+    })
+  })
 })
 ```
 
