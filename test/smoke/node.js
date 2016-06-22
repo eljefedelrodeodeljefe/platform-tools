@@ -74,7 +74,7 @@ test('multiple_objects_exectuable test', function (t) {
 
   if (process.platform === 'win32') {
 
-  } else {
+  } else if (process.platform === 'darwin') {
     options.compiler_flags = [
       `-Os`,
       `-gdwarf-2`,
@@ -101,30 +101,50 @@ test('multiple_objects_exectuable test', function (t) {
       '_LARGEFILE_SOURCE',
       '_FILE_OFFSET_BITS=64'
     ]
+
+    pt.compilerUtil[process.platform].compiler.arch(process.arch)
+      .forEach(el => options.compiler_flags.push(el))
+    pt.compilerUtil[process.platform].osx_min_version('10.5')
+      .forEach(el => options.compiler_flags.push(el))
+
+  } else if (process.platform === 'linux') {
+    options.compiler_flags = [
+      '-pthread',
+      '-Wall',
+      '-Wextra',
+      '-Wno-unused-parameter',
+      '-O3',
+      '-ffunction-sections',
+      '-fdata-sections',
+      '-fno-omit-frame-pointer',
+      '-fno-rtti',
+      '-fno-exceptions',
+      '-std=gnu++0x',
+    ],
+    options.defines = [
+      'NODE_ARCH="x64"',
+      'NODE_PLATFORM="linux"',
+      'NODE_WANT_INTERNALS=1',
+      'V8_DEPRECATION_WARNINGS=1',
+      'HAVE_OPENSSL=1',
+      '__POSIX__',
+      '-DHTTP_PARSER_STRICT=0',
+      '_LARGEFILE_SOURCE',
+      '_FILE_OFFSET_BITS=64',
+      '_POSIX_C_SOURCE=200112'
+    ]
+
+    pt.compilerUtil[process.platform].compiler.arch(process.arch)
+      .forEach(el => options.compiler_flags.push(el))
   }
-
-  pt.compilerUtil[process.platform].compiler.arch(process.arch)
-    .forEach(el => options.compiler_flags.push(el))
-  pt.compilerUtil[process.platform].osx_min_version('10.5')
-    .forEach(el => options.compiler_flags.push(el))
-
 
   pt.compile(sources, options, (err, files) => {
     if (err)
       t.fail(err, 'Error must not be called')
 
     const options = {
-      output: out
-    }
-    if (process.platform === 'win32') {
-
-    } else if (process.platform === 'darwin') {
-      options.linker_flags = [
-        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
-        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
-        '-Wl,-search_paths_first',
-        '-mmacosx-version-min=10.5',
-        '-arch', 'x86_64',
+      output: out,
+      linker_flags: [
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
@@ -134,12 +154,40 @@ test('multiple_objects_exectuable test', function (t) {
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
         `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
+      ]
+    }
+
+    if (process.platform === 'win32') {
+
+    } else if (process.platform === 'darwin') {
+       [
+        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+        '-Wl,-search_paths_first',
+        '-mmacosx-version-min=10.5',
+        '-arch', 'x86_64',
         '-framework',
         'CoreFoundation',
         '-lm'
-      ]
+      ].forEach(flag => options.linker_flags.push(flag))
     } else if (process.platform === 'linux') {
+      [
+        '-Wl,--whole-archive',
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+        '-Wl,--no-whole-archive',
+        '-Wl,--whole-archive',
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/obj.target/deps/v8/tools/gyp/libv8_base.a`,
+        '-Wl,--no-whole-archive',
+        '-Wl,-z,noexecstack',
+        '-pthread',
+        '-rdynamic',
+        '-ldl',
+        '-lrt',
+        '-lm'
+      ].forEach(flag => options.linker_flags.push(flag))
 
+      pt.compilerUtil[process.platform].linker.arch(process.arch)
+        .forEach(el => options.linker_flags.push(el))
     }
 
     pt.link(files, options, (err, file) => {
