@@ -1,69 +1,152 @@
-/*
-c++
--Wl,-force_load,/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libopenssl.a
--Wl,-force_load,/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libv8_base.a
--Wl,-search_paths_first
--mmacosx-version-min=10.5
--arch
-x86_64
--L/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release
+'use strict';
+const pt = require('../../')
+const assert = require('assert')
+const child_process = require('child_process')
+const test = require('tape')
 
--o
-"/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/node"
+test('multiple_objects_exectuable test', function (t) {
+  t.plan(2);
+  let out = `${process.cwd()}/build/node`
 
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/debug-agent.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/async-wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/env.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/fs_event_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/cares_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/handle_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/js_stream.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_buffer.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_constants.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_contextify.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_file.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_http_parser.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_javascript.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_main.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_os.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_revert.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_util.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_v8.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_stat_watcher.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_watchdog.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_zlib.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_i18n.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/pipe_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/signal_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/spawn_sync.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/string_bytes.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/stream_base.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/stream_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/tcp_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/timer_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/tty_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/process_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/udp_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/uv.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/util.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/string_search.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_crypto.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_crypto_bio.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_crypto_clienthello.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/tls_wrap.o
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj.target/node/src/node_dtrace.o
+  const targetRoot = 'test/fixtures/sources/smoke/node'
 
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libcares.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libopenssl.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libzlib.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libuv.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libv8_base.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a
-/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a
--framework
-CoreFoundation
--lm
-*/
+  const sources = [
+    `${targetRoot}/src/debug-agent.cc`,
+    `${targetRoot}/src/async-wrap.cc`,
+    `${targetRoot}/src/env.cc`,
+    `${targetRoot}/src/fs_event_wrap.cc`,
+    `${targetRoot}/src/cares_wrap.cc`,
+    `${targetRoot}/src/handle_wrap.cc`,
+    `${targetRoot}/src/js_stream.cc`,
+    `${targetRoot}/src/node.cc`,
+    `${targetRoot}/src/node_buffer.cc`,
+    `${targetRoot}/src/node_constants.cc`,
+    `${targetRoot}/src/node_contextify.cc`,
+    `${targetRoot}/src/node_file.cc`,
+    `${targetRoot}/src/node_http_parser.cc`,
+    `${targetRoot}/src/node_javascript.cc`,
+    `${targetRoot}/src/node_main.cc`,
+    `${targetRoot}/src/node_os.cc`,
+    `${targetRoot}/src/node_revert.cc`,
+    `${targetRoot}/src/node_util.cc`,
+    `${targetRoot}/src/node_v8.cc`,
+    `${targetRoot}/src/node_stat_watcher.cc`,
+    `${targetRoot}/src/node_watchdog.cc`,
+    `${targetRoot}/src/node_zlib.cc`,
+    `${targetRoot}/src/node_i18n.cc`,
+    `${targetRoot}/src/pipe_wrap.cc`,
+    `${targetRoot}/src/signal_wrap.cc`,
+    `${targetRoot}/src/spawn_sync.cc`,
+    `${targetRoot}/src/string_bytes.cc`,
+    `${targetRoot}/src/stream_base.cc`,
+    `${targetRoot}/src/stream_wrap.cc`,
+    `${targetRoot}/src/tcp_wrap.cc`,
+    `${targetRoot}/src/timer_wrap.cc`,
+    `${targetRoot}/src/tty_wrap.cc`,
+    `${targetRoot}/src/process_wrap.cc`,
+    `${targetRoot}/src/udp_wrap.cc`,
+    `${targetRoot}/src/uv.cc`,
+    `${targetRoot}/src/util.cc`,
+    `${targetRoot}/src/string_search.cc`,
+    `${targetRoot}/src/node_crypto.cc`,
+    `${targetRoot}/src/node_crypto_bio.cc`,
+    `${targetRoot}/src/node_crypto_clienthello.cc`,
+    `${targetRoot}/src/tls_wrap.cc`,
+    `${targetRoot}/src/node_dtrace.cc`
+  ]
+
+  const options = {
+    output: `${out}.o`,
+    include_headers: [
+      `${targetRoot}/src`,
+      `${targetRoot}/tools/msvs/genfiles`,
+      `${targetRoot}/deps/uv/src/ares`,
+      `/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj/gen`,
+      `${targetRoot}/deps/v8`,
+      `${targetRoot}/deps/cares/include`,
+      `${targetRoot}/deps/v8/include`,
+      `${targetRoot}/deps/openssl/openssl/include`,
+      `${targetRoot}/deps/zlib`,
+      `${targetRoot}/deps/http_parser`,
+      `${targetRoot}/deps/uv/include`
+    ]
+  }
+
+  if (process.platform === 'win32') {
+
+  } else {
+    options.compiler_flags = [
+      `-Os`,
+      `-gdwarf-2`,
+      `-mmacosx-version-min=10.5`,
+      `-arch`,
+      `x86_64`,
+      `-Wall`,
+      `-Wendif-labels`,
+      `-W`,
+      `-Wno-unused-parameter`,
+      `-std=gnu++0x`,
+      `-fno-rtti`,
+      `-fno-exceptions`,
+      `-fno-threadsafe-statics`,
+      `-fno-strict-aliasing`
+    ],
+    options.defines = [
+      '_DARWIN_USE_64_BIT_INODE=1',
+      'NODE_ARCH="x64"',
+      'NODE_WANT_INTERNALS=1',
+      'V8_DEPRECATION_WARNINGS=1',
+      'HAVE_OPENSSL=1',
+      'HAVE_DTRACE=1',
+      '__POSIX__',
+      'NODE_PLATFORM="darwin"',
+      'HTTP_PARSER_STRICT=0',
+      '_LARGEFILE_SOURCE',
+      '_FILE_OFFSET_BITS=64'
+    ]
+  }
+
+
+  pt.compile(sources, options, (err, files) => {
+    if (err)
+      t.fail(err, 'Error must not be called')
+
+    const options = {
+      output: out
+    }
+    options.linker_flags = [
+      `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+      `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+      '-Wl,-search_paths_first',
+      '-mmacosx-version-min=10.5',
+      '-arch', 'x86_64',
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libzlib.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libuv.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
+      '-framework',
+      'CoreFoundation',
+      '-lm'
+    ]
+
+    pt.link(files, options, (err, file) => {
+      if (err) return t.fail(err, 'Error must not be called')
+
+      const e = child_process.spawn(`${process.platform === 'win32' ? '': './'}node`, ['-v'], {cwd: 'build', shell: true});
+      e.stdout.on('data', (data) => {
+        t.ok(data.toString().indexOf('v4.4.5') === 0, 'Match version 4.4.5')
+      });
+      e.on('error', (err) => {
+        if (err) return t.fail(err, 'Error must not be called')
+      });
+      e.on('close', (code) => {
+        t.ok(code === 0, 'Compiled binary node must exit with code 0')
+      });
+    })
+  })
+})
