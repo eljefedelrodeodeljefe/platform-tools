@@ -1,3 +1,8 @@
 node_modules
 build
 npm-debug.log
+test/fixtures/sources/smoke/node
+test/fixtures/sources/cpp/out/*
+!test/fixtures/sources/cpp/out/.gitkeep
+test/fixtures/sources/c/out/*
+!test/fixtures/sources/c/out/.gitkeep
