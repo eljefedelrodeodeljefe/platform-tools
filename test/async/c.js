@@ -67,3 +67,34 @@ test('multiple_objects_exectuable test', function (t) {
     })
   })
 })
+
+test('compile with define flags', function (t) {
+  t.plan(1);
+  const sources = [
+    'test/fixtures/sources/c/define.c',
+  ]
+
+  let out = `${process.cwd()}/build/define`
+  let options = {
+    output: `${out}.o`,
+    defines: [
+      'FLAG_IS_SET'
+    ]
+  }
+
+  pt.compile(sources, options, (err, files) => {
+    if (err) t.fail(err, 'Error must not be called')
+
+    pt.link(files, {output: out}, (err, file) => {
+      if (err) t.fail(err, 'Error must not be called')
+
+      const e = child_process.spawn(`${process.cwd()}/build/${path.parse(file).name}`, [], {shell: true});
+      e.on('error', (err) => {
+        t.fail(err, 'Error must not be called')
+      });
+      e.on('close', (code) => {
+        t.equal(code, 12, 'Compiled binary defines must exit with code 12')
+      });
+    })
+  })
+})
