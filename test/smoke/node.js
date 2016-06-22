@@ -116,25 +116,31 @@ test('multiple_objects_exectuable test', function (t) {
     const options = {
       output: out
     }
-    options.linker_flags = [
-      `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
-      `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
-      '-Wl,-search_paths_first',
-      '-mmacosx-version-min=10.5',
-      '-arch', 'x86_64',
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libzlib.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libuv.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
-      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
-      '-framework',
-      'CoreFoundation',
-      '-lm'
-    ]
+    if (process.platform === 'win32') {
+
+    } else if (process.platform === 'darwin') {
+      options.linker_flags = [
+        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+        '-Wl,-search_paths_first',
+        '-mmacosx-version-min=10.5',
+        '-arch', 'x86_64',
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libzlib.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libuv.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
+        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
+        '-framework',
+        'CoreFoundation',
+        '-lm'
+      ]
+    } else if (process.platform === 'linux') {
+
+    }
 
     pt.link(files, options, (err, file) => {
       if (err) return t.fail(err, 'Error must not be called')
