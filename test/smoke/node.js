@@ -78,9 +78,6 @@ test('multiple_objects_exectuable test', function (t) {
     options.compiler_flags = [
       `-Os`,
       `-gdwarf-2`,
-      `-mmacosx-version-min=10.5`,
-      `-arch`,
-      `x86_64`,
       `-Wall`,
       `-Wendif-labels`,
       `-W`,
@@ -105,6 +102,11 @@ test('multiple_objects_exectuable test', function (t) {
       '_FILE_OFFSET_BITS=64'
     ]
   }
+
+  pt.compilerUtil[process.platform].compiler.arch(process.arch)
+    .forEach(el => options.compiler_flags.push(el))
+  pt.compilerUtil[process.platform].osx_min_version('10.5')
+    .forEach(el => options.compiler_flags.push(el))
 
 
   pt.compile(sources, options, (err, files) => {
