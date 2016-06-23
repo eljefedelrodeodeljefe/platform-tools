@@ -33,7 +33,7 @@ before_install:
 before_script:
 script:
   - npm install
-  - npm test
+  - NODE_DEBUG=platform_tools npm test
 
 cache:
   directories:

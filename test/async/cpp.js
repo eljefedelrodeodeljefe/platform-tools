@@ -11,7 +11,7 @@ test('cpp test', (t) => {
     pt.link(`${out}.o`, {output: out}, () => {
       const e = child_process.spawn(`${process.platform === 'win32' ? '': './'}${out}`, [], {shell: true});
       e.on('error', (err) => {
-        t.fail(err, 'Error must not be called')
+        return t.fail(err, 'Error must not be called')
       });
       e.on('close', (code) => {
         t.ok(code === 0, 'Compiled binary simple must exit with code 0')

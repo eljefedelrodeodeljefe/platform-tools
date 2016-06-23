@@ -13,7 +13,7 @@ test('addon test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/addon.cc`
   pt.compileAddon(`${out}`, {output: `addon`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/addon')
@@ -29,7 +29,7 @@ test('addon_1 test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/1_hello_world/nan/hello.cc`
   pt.compileAddon(`${out}`, {output: `addon_1`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/1_hello_world/nan/hello.js')
@@ -43,7 +43,7 @@ test('addon_2 test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon_2.cc`
   pt.compileAddon(`${out}`, {output: `addon_2`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/2_function_arguments/nan/addon.js')
@@ -57,7 +57,7 @@ test('addon_3 test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon_3.cc`
   pt.compileAddon(`${out}`, {output: `addon_3`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/3_callbacks/nan/addon.js')
@@ -76,7 +76,7 @@ test('addon_4 test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon_4.cc`
   pt.compileAddon(`${out}`, {output: `addon_4`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/4_object_factory/nan/addon.js')
@@ -90,7 +90,7 @@ test('addon_5 test', function (t) {
   let out = `${process.cwd()}/test/fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon_5.cc`
   pt.compileAddon(`${out}`, {output: `addon_5`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/5_function_factory/nan/addon.js')
@@ -108,7 +108,7 @@ test('addon_6 test', function (t) {
   ]
   pt.compileAddon(out, {output: `addon_6`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/6_object_wrap/nan/addon.js')
@@ -135,7 +135,7 @@ test('addon_7 test', function (t) {
   ]
   pt.compileAddon(out, {output: `addon_7`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let createObject = require('../fixtures/sources/addons/node-addon-examples/7_factory_wrap/nan/addon.js')
@@ -160,7 +160,7 @@ test('addon_8 test', function (t) {
   ]
   pt.compileAddon(out, {output: `addon_8`}, (err) => {
     if (err) {
-      t.fail(err, 'must not call error here')
+      return t.fail(err, 'must not call error here')
     }
 
     let addon = require('../fixtures/sources/addons/node-addon-examples/8_passing_wrapped/nan/addon.js')
