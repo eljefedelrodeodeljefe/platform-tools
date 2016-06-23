@@ -6,3 +6,6 @@ test/fixtures/sources/cpp/out/*
 !test/fixtures/sources/cpp/out/.gitkeep
 test/fixtures/sources/c/out/*
 !test/fixtures/sources/c/out/.gitkeep
+
+.vscode
+.idea
