@@ -63,7 +63,7 @@ test('multiple_objects_exectuable test', function (t) {
       `${targetRoot}/src`,
       `${targetRoot}/tools/msvs/genfiles`,
       `${targetRoot}/deps/uv/src/ares`,
-      `/Users/jefe/repos/platform-tools/test/fixtures/sources/smoke/node/out/Release/obj/gen`,
+      `${targetRoot}/out/Release/obj/gen`,
       `${targetRoot}/deps/v8`,
       `${targetRoot}/deps/cares/include`,
       `${targetRoot}/deps/v8/include`,
