@@ -14,7 +14,7 @@ test('exit_with_1 test', function (t) {
     pt.link(`${out}.o`, {output: out}, () => {
       const e = child_process.spawn(out, [], {shell: true});
       e.on('error', (err) => {
-        t.fail(err, 'Error must not be called')
+        return t.fail(err, 'Error must not be called')
       });
       e.on('close', (code) => {
         // FIXME
@@ -51,15 +51,15 @@ test('multiple_objects_exectuable test', function (t) {
   // the output option will be forcefully ignored
   pt.compile(sources, {output: `${out}.o`}, (err, files) => {
     if (err)
-      t.fail(err, 'Error must not be called')
+      return t.fail(err, 'Error must not be called')
 
     pt.link(files, {output: out}, (err, file) => {
       if (err) {
-        t.fail(err, 'Error must not be called')
+        return t.fail(err, 'Error must not be called')
       }
       const e = child_process.spawn(`${process.cwd()}/build/${path.parse(file).name}`, [], {shell: true});
       e.on('error', (err) => {
-        t.fail(err, 'Error must not be called')
+        return t.fail(err, 'Error must not be called')
       });
       e.on('close', (code) => {
         t.equal(code, 123, 'Compiled binary multiple_objects_exectuable must exit with code 123')
@@ -83,14 +83,14 @@ test('compile with define flags', function (t) {
   }
 
   pt.compile(sources, options, (err, files) => {
-    if (err) t.fail(err, 'Error must not be called')
+    if (err) return t.fail(err, 'Error must not be called')
 
     pt.link(files, {output: out}, (err, file) => {
-      if (err) t.fail(err, 'Error must not be called')
+      if (err) return t.fail(err, 'Error must not be called')
 
       const e = child_process.spawn(`${process.cwd()}/build/${path.parse(file).name}`, [], {shell: true});
       e.on('error', (err) => {
-        t.fail(err, 'Error must not be called')
+        return t.fail(err, 'Error must not be called')
       });
       e.on('close', (code) => {
         t.equal(code, 12, 'Compiled binary defines must exit with code 12')

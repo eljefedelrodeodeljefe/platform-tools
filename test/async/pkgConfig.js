@@ -9,7 +9,7 @@ if (process.platform !== 'win32')
     t.plan(1)
     pt.config('test/fixtures/pc/openssl.pc', (err, res) => {
       if (err) {
-        t.fail(err, 'must not call calback with error')
+        return t.fail(err, 'must not call calback with error')
       }
       t.deepEqual(res, {
                                 prefix: '/usr',
@@ -31,7 +31,7 @@ test('existing .pc test', (t) => {
   t.plan(1)
   pt.config('openssl', (err, res) => {
     if (err) {
-      t.fail(err, 'must not call calback with error')
+      return t.fail(err, 'must not call calback with error')
     }
     try {
       delete res.version
