@@ -128,7 +128,7 @@ test('multiple_objects_exectuable test', function (t) {
       'V8_DEPRECATION_WARNINGS=1',
       'HAVE_OPENSSL=1',
       '__POSIX__',
-      '-DHTTP_PARSER_STRICT=0',
+      'HTTP_PARSER_STRICT=0',
       '_LARGEFILE_SOURCE',
       '_FILE_OFFSET_BITS=64',
       '_POSIX_C_SOURCE=200112'
