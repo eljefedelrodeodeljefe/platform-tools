@@ -8,7 +8,7 @@ test('multiple_objects_exectuable test', function (t) {
   t.plan(2);
   let out = `${process.cwd()}/build/node`
 
-  const targetRoot = 'test/fixtures/sources/smoke/node'
+  const targetRoot = `${process.cwd()}/test/fixtures/sources/smoke/node`
 
   const sources = [
     `${targetRoot}/src/debug-agent.cc`,
