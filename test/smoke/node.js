@@ -146,25 +146,27 @@ test('multiple_objects_exectuable test', function (t) {
 
     const options = {
       output: out,
-      linker_flags: [
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libzlib.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libuv.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
-      ]
+      linker_flags: []
     }
+
+    const archives = [
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libcares.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libplatform.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libzlib.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libhttp_parser.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libuv.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_libbase.a`,
+      `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_snapshot.a`,
+    ]
 
     if (process.platform === 'win32') {
 
     } else if (process.platform === 'darwin') {
        [
-        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
-        `-Wl,-force_load,${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libv8_base.a`,
+        `-Wl,-force_load,${targetRoot}/out/Release/libopenssl.a`,
+        `-Wl,-force_load,${targetRoot}/out/Release/libv8_base.a`,
         '-Wl,-search_paths_first',
         '-mmacosx-version-min=10.5',
         '-arch', 'x86_64',
@@ -172,13 +174,15 @@ test('multiple_objects_exectuable test', function (t) {
         'CoreFoundation',
         '-lm'
       ].forEach(flag => options.linker_flags.push(flag))
+
+      options.tail_flags = archives
     } else if (process.platform === 'linux') {
       [
         '-Wl,--whole-archive',
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/libopenssl.a`,
+        `${targetRoot}/out/Release/libopenssl.a`,
         '-Wl,--no-whole-archive',
         '-Wl,--whole-archive',
-        `${process.cwd()}/test/fixtures/sources/smoke/node/out/Release/obj.target/deps/v8/tools/gyp/libv8_base.a`,
+        `${targetRoot}/out/Release/obj.target/deps/v8/tools/gyp/libv8_base.a`,
         '-Wl,--no-whole-archive',
         '-Wl,-z,noexecstack',
         '-pthread',
@@ -190,6 +194,8 @@ test('multiple_objects_exectuable test', function (t) {
 
       pt.compilerUtil[process.platform].linker.arch(process.arch)
         .forEach(el => options.linker_flags.push(el))
+
+      options.tail_flags = archives
     }
 
     pt.link(files, options, (err, file) => {
