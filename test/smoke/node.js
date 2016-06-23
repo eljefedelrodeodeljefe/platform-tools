@@ -51,9 +51,11 @@ test('multiple_objects_exectuable test', function (t) {
     `${targetRoot}/src/node_crypto.cc`,
     `${targetRoot}/src/node_crypto_bio.cc`,
     `${targetRoot}/src/node_crypto_clienthello.cc`,
-    `${targetRoot}/src/tls_wrap.cc`,
-    `${targetRoot}/src/node_dtrace.cc`
+    `${targetRoot}/src/tls_wrap.cc`
   ]
+
+  if (process.platform === 'darwin' || process.platform === 'sunos')
+    sources.push(`${targetRoot}/src/node_dtrace.cc`)
 
   const options = {
     output: `${out}.o`,
