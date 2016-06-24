@@ -21,12 +21,14 @@ install:
   - npm install -g node-gyp
   - npm install
 
+environment:
+  NO_ARCH: true
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  - node -e "console.log(`${process.versions}\n${process.platform}\n${process.arch}\n`)"
+  - node -e "console.log(`${process.versions}\n${process.platform}\n${process.arch}\nNO_ARCH ${process.env.NO_ARCH}\n`)"
   # run tests
   - npm test
 
