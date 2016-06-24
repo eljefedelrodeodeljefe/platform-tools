@@ -17,12 +17,11 @@ image: Visual Studio 2015
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
+  - ps: $env:NO_ARCH="true"
   # install modules
   - npm install -g node-gyp
   - npm install
 
-environment:
-  NO_ARCH: true
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
