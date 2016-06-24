@@ -26,6 +26,7 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
+  - node -e "console.log(`${process.versions}\n${process.platform}\n${process.arch}\n`)"
   # run tests
   - npm test
 
