@@ -75,7 +75,50 @@ test('multiple_objects_exectuable test', function (t) {
   }
 
   if (process.platform === 'win32') {
+    options.include_headers.push(`${targetRoot}/debug/obj/global_intermediate`)
 
+    options.compiler_flags = [
+      '/ISRC',
+      '/W3',
+      '/WX-',
+      '/Od',
+      '/Oy-',
+      '/GF',
+      '/Gm-',
+      '/RTC1',
+      '/MTd',
+      '/GS',
+      '/fp:precise',
+      '/Zc:wchar_t',
+      '/Zc:forScope',
+      '/Zc:inline',
+      '/Gd',
+      '/TP',
+      '/wd4351',
+      '/wd4355',
+      '/wd4800',
+      '/analyze-'
+    ]
+    options.defines = [
+      'WIN32',
+      '_CRT_SECURE_NO_DEPRECATE',
+      '_CRT_NONSTDC_NO_DEPRECATE',
+      '_HAS_EXCEPTIONS=0',
+      'BUILDING_V8_SHARED=1',
+      'BUILDING_UV_SHARED=1',
+      '"NODE_ARCH=\"ia32\""',
+      'NODE_WANT_INTERNALS=1',
+      'V8_DEPRECATION_WARNINGS=1',
+      'HAVE_OPENSSL=1',
+      'HAVE_ETW=1',
+      'HAVE_PERFCTR=1',
+      'FD_SETSIZE=1024',
+      '"NODE_PLATFORM=\"win32\""',
+      '_UNICODE=1',
+      'HTTP_PARSER_STRICT=0',
+      'DEBUG',
+      '_DEBUG'
+    ]
   } else if (process.platform === 'darwin') {
     options.compiler_flags = [
       `-Os`,
