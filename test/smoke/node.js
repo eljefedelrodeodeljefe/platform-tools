@@ -1,11 +1,18 @@
 'use strict';
 const pt = require('../../')
+const fs = require('fs')
 const assert = require('assert')
 const child_process = require('child_process')
 const test = require('tape')
 
 test('multiple_objects_exectuable test', function (t) {
   t.plan(2);
+  try {
+    fs.mkdirSync('build')
+  } catch (e) {
+    // ignore all errors
+  }
+
   let out = `${process.cwd()}/build/node`
 
   const targetRoot = `${process.cwd()}/test/fixtures/sources/smoke/node`
@@ -110,8 +117,9 @@ test('multiple_objects_exectuable test', function (t) {
       'NODE_WANT_INTERNALS=1',
       'V8_DEPRECATION_WARNINGS=1',
       'HAVE_OPENSSL=1',
-      'HAVE_ETW=1',
-      'HAVE_PERFCTR=1',
+      // 'HAVE_ETW=0',
+      // 'HAVE_PERFCTR=0',
+      // 'HAVE_DTRACE=0',
       'FD_SETSIZE=1024',
       '\"NODE_PLATFORM=\\\"win32\\\"\"',
       '_UNICODE=1',
@@ -205,7 +213,42 @@ test('multiple_objects_exectuable test', function (t) {
     ]
 
     if (process.platform === 'win32') {
-
+      [
+        '/NXCOMPAT',
+        '/DYNAMICBASE',
+        '/MAPINFO:EXPORTS',
+        'winmm.lib',
+        'gdi32.lib',
+        'user32.lib',
+        'advapi32.lib',
+        'iphlpapi.lib',
+        'psapi.lib',
+        'shell32.lib',
+        'userenv.lib',
+        'ws2_32.lib',
+        '/MACHINE:X64',
+        // '/SAFESEH',
+        '/INCREMENTAL:NO',
+        '/MAP',
+        '/ERRORREPORT:queue',
+        '/TLBID:1',
+        '/debug',
+        '/tlbid:1',
+        '/MACHINE:X64',
+        `/implib:\"${process.cwd()}/build\\node.lib\"`,
+        `\"${targetRoot}\\debug\\lib\\cares.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_libplatform.lib\"`,
+        `\"${targetRoot}\\debug\\lib\\openssl.lib\"`,
+        `\"${targetRoot}\\debug\\lib\\zlib.lib\"`,
+        `\"${targetRoot}\\debug\\lib\\http_parser.lib\"`,
+        `\"${targetRoot}\\debug\\lib\\libuv.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_base_0.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_base_1.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_base_2.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_base_3.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_libbase.lib\"`,
+        `\"${targetRoot}\\build\\debug\\lib\\v8_snapshot.lib\"`
+      ].forEach(flag => options.linker_flags.push(flag))
     } else if (process.platform === 'darwin') {
        [
         `-Wl,-force_load,${targetRoot}/out/Release/libopenssl.a`,
